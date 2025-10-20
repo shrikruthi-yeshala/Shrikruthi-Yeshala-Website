@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Productivity Sheet - Shrikruthi Yeshala</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .productivity-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .productivity-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .employee-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-group input,
+        .info-group select {
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .info-group input:focus,
+        .info-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .tasks-section {
+            margin-bottom: 2rem;
+        }
+        
+        .tasks-section h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .task-category {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .task-category h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .task-description {
+            flex: 1;
+            margin-right: 1rem;
+        }
+        
+        .task-description h5 {
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+        
+        .task-description p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .task-status {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .status-radio {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .status-radio input[type="radio"] {
+            margin: 0;
+        }
+        
+        .status-radio label {
+            font-size: 0.9rem;
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .completed { color: #28a745; }
+        .in-progress { color: #ffc107; }
+        .not-started { color: #dc3545; }
+        
+        .time-tracking {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #e9ecef;
+            border-radius: 8px;
+        }
+        
+        .time-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .time-input {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .time-input label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+        
+        .time-input input {
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .notes-section {
+            margin-bottom: 2rem;
+        }
+        
+        .notes-section textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .notes-section textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .submit-section {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .summary-section {
+            background: #e8f5e8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #28a745;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #28a745;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .productivity-container {
+                padding: 1rem;
+            }
+            
+            .employee-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .task-status {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .time-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Employee Productivity Sheet</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="productivity-container">
+            <div class="productivity-header">
+                <h2>Daily Productivity Tracking Sheet</h2>
+                <p>Track your daily tasks and productivity metrics</p>
+            </div>
+
+            <form id="productivityForm">
+                <!-- Employee Information -->
+                <div class="employee-info">
+                    <div class="info-group">
+                        <label for="employeeName">Employee Name *</label>
+                        <input type="text" id="employeeName" name="employeeName" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="employeeId">Employee ID *</label>
+                        <input type="text" id="employeeId" name="employeeId" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="department">Department *</label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Operations">Operations</option>
+                            <option value="Sales">Sales</option>
+                        </select>
+                    </div>
+                    <div class="info-group">
+                        <label for="date">Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <!-- Daily Tasks Section -->
+                <div class="tasks-section">
+                    <h3>Daily Task Completion</h3>
+                    
+                    <!-- Core Work Tasks -->
+                    <div class="task-category">
+                        <h4>Core Work Tasks</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Project Development</h5>
+                                <p>Work on assigned development tasks and coding projects</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-not" name="projectDev" value="not-started">
+                                    <label for="project-dev-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-progress" name="projectDev" value="in-progress">
+                                    <label for="project-dev-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="project-dev-complete" name="projectDev" value="completed">
+                                    <label for="project-dev-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Code Review</h5>
+                                <p>Review and provide feedback on team members' code</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-not" name="codeReview" value="not-started">
+                                    <label for="code-review-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-progress" name="codeReview" value="in-progress">
+                                    <label for="code-review-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="code-review-complete" name="codeReview" value="completed">
+                                    <label for="code-review-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Documentation</h5>
+                                <p>Update project documentation and technical specifications</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-not" name="documentation" value="not-started">
+                                    <label for="documentation-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-progress" name="documentation" value="in-progress">
+                                    <label for="documentation-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="documentation-complete" name="documentation" value="completed">
+                                    <label for="documentation-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Communication Tasks -->
+                    <div class="task-category">
+                        <h4>Communication & Collaboration</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Team Meetings</h5>
+                                <p>Attend scheduled team meetings and stand-ups</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-not" name="meetings" value="not-started">
+                                    <label for="meetings-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-progress" name="meetings" value="in-progress">
+                                    <label for="meetings-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="meetings-complete" name="meetings" value="completed">
+                                    <label for="meetings-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Client Communication</h5>
+                                <p>Respond to client emails and update project status</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-not" name="clientComm" value="not-started">
+                                    <label for="client-comm-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-progress" name="clientComm" value="in-progress">
+                                    <label for="client-comm-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="client-comm-complete" name="clientComm" value="completed">
+                                    <label for="client-comm-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Learning & Development -->
+                    <div class="task-category">
+                        <h4>Learning & Development</h4>
+                        
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Skill Development</h5>
+                                <p>Spend time learning new technologies or improving existing skills</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-not" name="skillDev" value="not-started">
+                                    <label for="skill-dev-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-progress" name="skillDev" value="in-progress">
+                                    <label for="skill-dev-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="skill-dev-complete" name="skillDev" value="completed">
+                                    <label for="skill-dev-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-item">
+                            <div class="task-description">
+                                <h5>Training Sessions</h5>
+                                <p>Attend training sessions or workshops</p>
+                            </div>
+                            <div class="task-status">
+                                <div class="status-radio">
+                                    <input type="radio" id="training-not" name="training" value="not-started">
+                                    <label for="training-not" class="not-started">Not Started</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="training-progress" name="training" value="in-progress">
+                                    <label for="training-progress" class="in-progress">In Progress</label>
+                                </div>
+                                <div class="status-radio">
+                                    <input type="radio" id="training-complete" name="training" value="completed">
+                                    <label for="training-complete" class="completed">Completed</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Tracking -->
+                <div class="time-tracking">
+                    <h4>Time Tracking</h4>
+                    <div class="time-inputs">
+                        <div class="time-input">
+                            <label for="startTime">Start Time</label>
+                            <input type="time" id="startTime" name="startTime">
+                        </div>
+                        <div class="time-input">
+                            <label for="endTime">End Time</label>
+                            <input type="time" id="endTime" name="endTime">
+                        </div>
+                        <div class="time-input">
+                            <label for="breakTime">Break Duration (minutes)</label>
+                            <input type="number" id="breakTime" name="breakTime" min="0" max="480">
+                        </div>
+                        <div class="time-input">
+                            <label for="productiveHours">Productive Hours</label>
+                            <input type="number" id="productiveHours" name="productiveHours" step="0.5" min="0" max="12">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div class="notes-section">
+                    <h3>Daily Notes & Comments</h3>
+                    <textarea id="dailyNotes" name="dailyNotes" placeholder="Add any additional notes about your day, challenges faced, or achievements..."></textarea>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="summary-section">
+                    <h3>Daily Summary</h3>
+                    <p>Review your completed tasks and productivity metrics for today.</p>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="completedTasks">0</div>
+                            <div class="stat-label">Tasks Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="inProgressTasks">0</div>
+                            <div class="stat-label">Tasks In Progress</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="totalTasks">7</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="productivityScore">0%</div>
+                            <div class="stat-label">Productivity Score</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Section -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Submit Daily Report</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/shrikruthi-yeshala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:syeshala@iu.edu">Email</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📧 syeshala@iu.edu</p>
+                    <p>📱 (929) 613-3750</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shrikruthi Yeshala. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('date').valueAsDate = new Date();
+
+        // Real-time productivity calculation
+        function updateProductivityStats() {
+            const taskInputs = document.querySelectorAll('input[name^="project"], input[name^="code"], input[name^="documentation"], input[name^="meetings"], input[name^="client"], input[name^="skill"], input[name^="training"]');
+            
+            let completed = 0;
+            let inProgress = 0;
+            
+            taskInputs.forEach(input => {
+                if (input.checked) {
+                    if (input.value === 'completed') {
+                        completed++;
+                    } else if (input.value === 'in-progress') {
+                        inProgress++;
+                    }
+                }
+            });
+            
+            const total = 7; // Total number of task categories
+            const productivityScore = Math.round((completed / total) * 100);
+            
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('inProgressTasks').textContent = inProgress;
+            document.getElementById('productivityScore').textContent = productivityScore + '%';
+        }
+
+        // Add event listeners to all task radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProductivityStats);
+        });
+
+        // Calculate productive hours automatically
+        function calculateProductiveHours() {
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const breakTime = parseInt(document.getElementById('breakTime').value) || 0;
+            
+            if (startTime && endTime) {
+                const start = new Date('2000-01-01 ' + startTime);
+                const end = new Date('2000-01-01 ' + endTime);
+                
+                if (end > start) {
+                    const totalMinutes = (end - start) / (1000 * 60);
+                    const productiveMinutes = totalMinutes - breakTime;
+                    const productiveHours = Math.max(0, productiveMinutes / 60);
+                    
+                    document.getElementById('productiveHours').value = productiveHours.toFixed(1);
+                }
+            }
+        }
+
+        // Add event listeners for time calculation
+        document.getElementById('startTime').addEventListener('change', calculateProductiveHours);
+        document.getElementById('endTime').addEventListener('change', calculateProductiveHours);
+        document.getElementById('breakTime').addEventListener('input', calculateProductiveHours);
+
+        // Form submission
+        document.getElementById('productivityForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            if (!data.employeeName || !data.employeeId || !data.department || !data.date) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Show success message
+            alert('Daily productivity report submitted successfully!');
+            
+            // In a real application, you would send this data to a server
+            console.log('Productivity Data:', data);
+            
+            // Reset the form after successful submission
+            resetProductivityForm();
+        });
+
+        // Function to reset the form
+        function resetProductivityForm() {
+            // Reset all form inputs
+            document.getElementById('productivityForm').reset();
+            
+            // Reset date to today
+            document.getElementById('date').valueAsDate = new Date();
+            
+            // Reset all radio buttons (uncheck all)
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Reset productivity stats
+            document.getElementById('completedTasks').textContent = '0';
+            document.getElementById('inProgressTasks').textContent = '0';
+            document.getElementById('productivityScore').textContent = '0%';
+            
+            // Clear any visual feedback
+            document.querySelectorAll('input, textarea').forEach(input => {
+                input.style.borderColor = '';
+            });
+            
+            // Show reset confirmation
+            setTimeout(() => {
+                alert('Form has been reset and is ready for the next day\'s productivity tracking!');
+            }, 500);
+        }
+
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceNow AI Automation - Technical Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .doc-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .doc-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .doc-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .doc-hero .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .doc-hero .version {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .doc-nav {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+        }
+        
+        .doc-nav h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .doc-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .doc-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .doc-nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .doc-nav a:hover {
+            color: #2c3e50;
+        }
+        
+        .doc-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .doc-section h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .doc-section h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .feature-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h4 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .metrics-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .code-demo {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+        
+        .code-demo .comment {
+            color: #95a5a6;
+        }
+        
+        .code-demo .keyword {
+            color: #e74c3c;
+        }
+        
+        .code-demo .string {
+            color: #2ecc71;
+        }
+        
+        .implementation-flow {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .step-content p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .security-highlights {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #28a745;
+            margin: 2rem 0;
+        }
+        
+        .security-highlights h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        
+        .security-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .security-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .security-item h4 {
+            color: #28a745;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .security-item p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .back-to-projects {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-projects a {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+        }
+        
+        .back-to-projects a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .doc-wrapper {
+                padding: 1rem;
+            }
+            
+            .doc-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .doc-section {
+                padding: 2rem;
+            }
+            
+            .feature-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-showcase {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Shrikruthi Yeshala</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="doc-wrapper">
+            <div class="back-to-projects">
+                <a href="projects.html">← Back to Projects</a>
+            </div>
+            
+            <div class="doc-hero">
+                <h1>ServiceNow AI-Powered Automation</h1>
+                <p class="subtitle">Intelligent JSON to HTML Conversion with Google CCAI Integration</p>
+                <div class="version">Version 1.0 | Last Updated: December 2024</div>
+            </div>
+
+            <div class="doc-nav">
+                <h3>📋 Documentation Navigation</h3>
+                <ul>
+                    <li><a href="#overview">Project Overview</a></li>
+                    <li><a href="#features">Key Features</a></li>
+                    <li><a href="#architecture">Technical Architecture</a></li>
+                    <li><a href="#implementation">Implementation Guide</a></li>
+                    <li><a href="#metrics">Performance Metrics</a></li>
+                    <li><a href="#security">Security & Compliance</a></li>
+                    <li><a href="#future">Future Roadmap</a></li>
+                </ul>
+            </div>
+
+            <div class="doc-section" id="overview">
+                <h2>🎯 Project Overview</h2>
+                <p>This advanced automation solution revolutionizes data processing within ServiceNow by leveraging Google Contact Center AI (CCAI) to automatically convert JSON data structures into HTML formats. The system eliminates manual processing bottlenecks while maintaining the highest standards of data integrity and ethical AI practices.</p>
+                
+                <div class="tech-badges">
+                    <span class="tech-badge">ServiceNow Platform</span>
+                    <span class="tech-badge">Google CCAI</span>
+                    <span class="tech-badge">JavaScript ES6+</span>
+                    <span class="tech-badge">REST APIs</span>
+                    <span class="tech-badge">JSON Processing</span>
+                    <span class="tech-badge">HTML Generation</span>
+                    <span class="tech-badge">Machine Learning</span>
+                    <span class="tech-badge">Data Security</span>
+                </div>
+            </div>
+
+            <div class="doc-section" id="features">
+                <h2>🚀 Key Features & Capabilities</h2>
+                <div class="feature-showcase">
+                    <div class="feature-card">
+                        <h4>🤖 AI-Powered Intelligence</h4>
+                        <p>Advanced machine learning algorithms analyze JSON structure patterns and automatically generate semantically correct HTML markup with proper nesting and formatting.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔗 Google CCAI Integration</h4>
+                        <p>Seamless integration with Google Contact Center AI provides natural language processing capabilities for enhanced data interpretation and intelligent content generation.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>⚡ Performance Optimization</h4>
+                        <p>Dramatic reduction in processing time from hours to minutes through intelligent automation, eliminating manual intervention and human error factors.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔒 Enterprise Security</h4>
+                        <p>Built-in security protocols ensure data integrity, compliance with enterprise standards, and protection against data breaches throughout the conversion process.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📊 Real-time Monitoring</h4>
+                        <p>Comprehensive logging and monitoring capabilities provide real-time insights into processing performance, error rates, and system health metrics.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🔄 Scalable Architecture</h4>
+                        <p>Designed to handle high-volume processing with automatic scaling capabilities and load balancing for enterprise-level deployment requirements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="architecture">
+                <h2>🏗️ Technical Architecture</h2>
+                <h3>System Workflow</h3>
+                <div class="implementation-flow">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>JSON Data Ingestion</h4>
+                            <p>Secure reception and validation of JSON input data with comprehensive error checking and format verification.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Google CCAI Processing</h4>
+                            <p>Intelligent analysis using Google Contact Center AI to understand data context and determine optimal HTML structure.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>HTML Generation</h4>
+                            <p>Automated creation of semantic HTML markup with proper structure, accessibility attributes, and responsive design elements.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Quality Assurance</h4>
+                            <p>Comprehensive validation of generated HTML including syntax checking, accessibility compliance, and cross-browser compatibility.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>Output Delivery</h4>
+                            <p>Secure delivery of processed HTML with audit logging and performance metrics tracking for continuous improvement.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Core Implementation Code</h3>
+                <div class="code-demo">
+<span class="comment">// ServiceNow Business Rule: AI-Powered JSON to HTML Conversion</span>
+<span class="keyword">function</span> processJSONToHTML() {
+    <span class="keyword">var</span> jsonInput = g_form.getValue('json_data');
+    <span class="keyword">var</span> processingId = generateUniqueId();
+    
+    <span class="comment">// Log processing start</span>
+    logProcessingStart(processingId, jsonInput);
+    
+    <span class="keyword">try</span> {
+        <span class="comment">// Call Google CCAI for intelligent processing</span>
+        <span class="keyword">var</span> ccaiResponse = callGoogleCCAI(jsonInput);
+        
+        <span class="comment">// Generate HTML using AI insights</span>
+        <span class="keyword">var</span> htmlOutput = generateSemanticHTML(ccaiResponse);
+        
+        <span class="comment">// Validate and sanitize output</span>
+        <span class="keyword">if</span> (validateHTMLOutput(htmlOutput)) {
+            g_form.setValue('html_output', htmlOutput);
+            g_form.setValue('processing_status', <span class="string">'completed'</span>);
+            logProcessingSuccess(processingId, htmlOutput);
+        } <span class="keyword">else</span> {
+            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">'HTML validation failed'</span>);
+        }
+    } <span class="keyword">catch</span> (error) {
+        handleProcessingError(processingId, error);
+        g_form.setValue('processing_status', <span class="string">'error'</span>);
+    }
+}
+
+<span class="keyword">function</span> callGoogleCCAI(jsonData) {
+    <span class="keyword">var</span> request = <span class="keyword">new</span> sn_ws.RESTMessageV2();
+    request.setEndpoint(<span class="string">'https://dialogflow.googleapis.com/v2/projects/your-project/agent/sessions/your-session:detectIntent'</span>);
+    request.setHttpMethod(<span class="string">'POST'</span>);
+    request.setRequestHeader(<span class="string">'Authorization'</span>, <span class="string">'Bearer '</span> + getAccessToken());
+    request.setRequestBody(JSON.stringify({
+        queryInput: {
+            text: {
+                text: jsonData,
+                languageCode: <span class="string">'en-US'</span>
+            }
+        }
+    }));
+    
+    <span class="keyword">var</span> response = request.execute();
+    <span class="keyword">return</span> JSON.parse(response.getBody());
+}
+                </div>
+            </div>
+
+            <div class="doc-section" id="metrics">
+                <h2>📊 Performance Metrics & Results</h2>
+                <div class="metrics-showcase">
+                    <div class="metric-card">
+                        <div class="metric-number">75%</div>
+                        <div class="metric-label">Reduction in Processing Time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">99.2%</div>
+                        <div class="metric-label">Data Accuracy Rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">24/7</div>
+                        <div class="metric-label">Automated Processing</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">0</div>
+                        <div class="metric-label">Manual Interventions</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">1000+</div>
+                        <div class="metric-label">Daily Conversions</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">99.9%</div>
+                        <div class="metric-label">System Uptime</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="security">
+                <h2>🔒 Security & Compliance</h2>
+                <div class="security-highlights">
+                    <h3>🛡️ Data Protection Measures</h3>
+                    <div class="security-list">
+                        <div class="security-item">
+                            <h4>🔐 End-to-End Encryption</h4>
+                            <p>TLS 1.3 encryption for all data transmission with AES-256 encryption for data at rest.</p>
+                        </div>
+                        <div class="security-item">
+                            <h4>👥 Role-Based Access Control</h4>
+                            <p>Granular permissions system with multi-factor authentication and session management.</p>
+                        </div>
+                        <div class="security-item">
+                            <h4>📝 Comprehensive Audit Logging</h4>
+                            <p>Complete audit trail of all data processing activities with tamper-proof logging.</p>
+                        </div>
+                        <div class="security-item">
+                            <h4>🗑️ Automated Data Retention</h4>
+                            <p>Intelligent data purging according to compliance policies and regulatory requirements.</p>
+                        </div>
+                        <div class="security-item">
+                            <h4>🔍 Privacy Protection</h4>
+                            <p>No PII storage in processing logs with automatic data anonymization capabilities.</p>
+                        </div>
+                        <div class="security-item">
+                            <h4>⚖️ Regulatory Compliance</h4>
+                            <p>Full compliance with GDPR, CCPA, and enterprise data protection standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-section" id="future">
+                <h2>🔮 Future Roadmap & Enhancements</h2>
+                <div class="feature-showcase">
+                    <div class="feature-card">
+                        <h4>🔄 Advanced Workflow Integration</h4>
+                        <p>Expansion to integrate with additional ServiceNow modules for comprehensive end-to-end process automation across the entire platform ecosystem.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>📊 Real-time Analytics Dashboard</h4>
+                        <p>Development of comprehensive monitoring and analytics dashboard for real-time performance tracking, optimization insights, and predictive analytics.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🌐 Multi-Platform Support</h4>
+                        <p>Extension to support multiple data formats including XML, CSV, and custom formats with various output types beyond HTML generation.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🤖 Advanced Machine Learning</h4>
+                        <p>Implementation of continuous learning algorithms to improve conversion accuracy, speed, and adaptability over time with minimal human intervention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/shrikruthi-yeshala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:syeshala@iu.edu">Email</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📧 syeshala@iu.edu</p>
+                    <p>📱 (929) 613-3750</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shrikruthi Yeshala. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
