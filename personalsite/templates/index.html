@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Shrikruthi Yeshala - Personal Website{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h2>Welcome to My Digital Space</h2>
+            <p class="hero-subtitle">Master's Student in Information Systems | Data Analytics Professional | AI Enthusiast</p>
+            <p class="hero-description">
+                I'm a passionate Information Systems graduate student at Indiana University, 
+                specializing in cybersecurity, AI, and data analytics. With experience in 
+                building end-to-end applications and driving business growth through data insights.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('about') }}" class="btn btn-primary">Learn More About Me</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='images/headshot1.jpg') }}" alt="Shrikruthi Yeshala professional headshot" class="profile-img">
+        </div>
+    </div>
+</section>
+
+<section class="highlights">
+    <div class="container">
+        <h3>What I Do</h3>
+        <div class="highlights-grid">
+            <div class="highlight-card">
+                <div class="highlight-icon">📊</div>
+                <h4>Data Analytics</h4>
+                <p>Building Power BI dashboards and automated data flows using AI to drive business insights.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🤖</div>
+                <h4>AI Integration</h4>
+                <p>Implementing AI solutions in ServiceNow and developing intelligent automation workflows.</p>
+            </div>
+            <div class="highlight-card">
+                <div class="highlight-icon">🎓</div>
+                <h4>Mentorship</h4>
+                <p>Guiding peers in technical skills and mentoring elementary students in their learning journey.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

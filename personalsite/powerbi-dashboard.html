@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power BI KPI Dashboard - Shrikruthi Yeshala</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .dashboard-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard-nav {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tab {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .nav-tab:hover,
+        .nav-tab.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .kpi-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+        
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .kpi-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kpi-label {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .kpi-change {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .kpi-change.positive {
+            color: #28a745;
+        }
+        
+        .kpi-change.negative {
+            color: #dc3545;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .chart-filter {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            color: #667eea;
+            font-weight: 500;
+        }
+        
+        .chart-filter:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .mock-chart {
+            height: 300px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: 2px dashed #667eea;
+        }
+        
+        .data-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .table-header {
+            background: #667eea;
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .table-content {
+            padding: 0;
+        }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+        }
+        
+        .table-row:last-child {
+            border-bottom: none;
+        }
+        
+        .table-row:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .table-header-row {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .table-cell {
+            padding: 0.5rem;
+        }
+        
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-badge.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .insights-panel {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #28a745;
+            margin-bottom: 2rem;
+        }
+        
+        .insights-panel h3 {
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .insight-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .insight-item h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-item p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .back-to-projects {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-projects a {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+        }
+        
+        .back-to-projects a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .dashboard-footer {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .footer-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-stat {
+            text-align: center;
+        }
+        
+        .footer-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Shrikruthi Yeshala</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="back-to-projects">
+                <a href="projects.html">← Back to Projects</a>
+            </div>
+            
+            <div class="dashboard-header">
+                <h1>📊 Power BI KPI Dashboard</h1>
+                <p class="subtitle">Interactive Analytics Dashboard for Business Intelligence</p>
+            </div>
+
+            <div class="dashboard-nav">
+                <div class="nav-tabs">
+                    <a href="#" class="nav-tab active">Overview</a>
+                    <a href="#" class="nav-tab">Sales Analytics</a>
+                    <a href="#" class="nav-tab">Customer Insights</a>
+                    <a href="#" class="nav-tab">Performance Metrics</a>
+                    <a href="#" class="nav-tab">Financial Reports</a>
+                </div>
+            </div>
+
+            <!-- KPI Cards Section -->
+            <div class="dashboard-grid">
+                <div class="kpi-card">
+                    <div class="kpi-number">$2.4M</div>
+                    <div class="kpi-label">Total Revenue</div>
+                    <div class="kpi-change positive">
+                        <span>↗</span> +12.5% vs last month
+                    </div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-number">1,247</div>
+                    <div class="kpi-label">Active Customers</div>
+                    <div class="kpi-change positive">
+                        <span>↗</span> +8.3% vs last month
+                    </div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-number">94.2%</div>
+                    <div class="kpi-label">Customer Satisfaction</div>
+                    <div class="kpi-change positive">
+                        <span>↗</span> +2.1% vs last month
+                    </div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-number">$1,923</div>
+                    <div class="kpi-label">Average Order Value</div>
+                    <div class="kpi-change negative">
+                        <span>↘</span> -3.2% vs last month
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue Trend Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">📈 Revenue Trend Analysis</h3>
+                    <div class="chart-controls">
+                        <select class="chart-filter">
+                            <option>Last 6 Months</option>
+                            <option>Last Year</option>
+                            <option>Last 2 Years</option>
+                        </select>
+                        <select class="chart-filter">
+                            <option>Monthly</option>
+                            <option>Weekly</option>
+                            <option>Daily</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mock-chart">
+                    📊 Interactive Revenue Chart (Power BI Visualization)
+                </div>
+            </div>
+
+            <!-- Customer Analytics Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">👥 Customer Segmentation</h3>
+                    <div class="chart-controls">
+                        <select class="chart-filter">
+                            <option>By Region</option>
+                            <option>By Age Group</option>
+                            <option>By Purchase Behavior</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mock-chart">
+                    🥧 Customer Distribution Pie Chart (Power BI Visualization)
+                </div>
+            </div>
+
+            <!-- Performance Metrics Table -->
+            <div class="data-table">
+                <div class="table-header">📋 Department Performance Metrics</div>
+                <div class="table-content">
+                    <div class="table-row table-header-row">
+                        <div class="table-cell">Department</div>
+                        <div class="table-cell">Target</div>
+                        <div class="table-cell">Actual</div>
+                        <div class="table-cell">Status</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Sales</div>
+                        <div class="table-cell">$500K</div>
+                        <div class="table-cell">$520K</div>
+                        <div class="table-cell">
+                            <span class="status-badge excellent">Excellent</span>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Marketing</div>
+                        <div class="table-cell">$200K</div>
+                        <div class="table-cell">$195K</div>
+                        <div class="table-cell">
+                            <span class="status-badge good">Good</span>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Operations</div>
+                        <div class="table-cell">$300K</div>
+                        <div class="table-cell">$285K</div>
+                        <div class="table-cell">
+                            <span class="status-badge warning">Needs Attention</span>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Customer Service</div>
+                        <div class="table-cell">$150K</div>
+                        <div class="table-cell">$160K</div>
+                        <div class="table-cell">
+                            <span class="status-badge excellent">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Insights Panel -->
+            <div class="insights-panel">
+                <h3>💡 Key Business Insights</h3>
+                
+                <div class="insight-item">
+                    <h4>📈 Revenue Growth Opportunity</h4>
+                    <p>Sales department is exceeding targets by 4%. Consider expanding sales team or increasing targets for next quarter to capitalize on this momentum.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h4>🎯 Customer Acquisition Trend</h4>
+                    <p>Customer base has grown 8.3% this month. The new marketing campaign is showing positive results, with highest growth in the 25-34 age demographic.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h4>⚠️ Operations Efficiency Alert</h4>
+                    <p>Operations department is 5% below target. Recommend reviewing processes and identifying bottlenecks to improve efficiency and meet quarterly goals.</p>
+                </div>
+                
+                <div class="insight-item">
+                    <h4>🏆 Customer Satisfaction Excellence</h4>
+                    <p>Customer satisfaction at 94.2% is above industry average. Customer service team's performance is driving this success - consider sharing best practices across departments.</p>
+                </div>
+            </div>
+
+            <!-- Dashboard Footer with Additional Metrics -->
+            <div class="dashboard-footer">
+                <h3>📊 Additional Performance Metrics</h3>
+                <div class="footer-stats">
+                    <div class="footer-stat">
+                        <div class="footer-stat-number">15.2%</div>
+                        <div class="footer-stat-label">Conversion Rate</div>
+                    </div>
+                    <div class="footer-stat">
+                        <div class="footer-stat-number">2.3 days</div>
+                        <div class="footer-stat-label">Avg. Response Time</div>
+                    </div>
+                    <div class="footer-stat">
+                        <div class="footer-stat-number">87%</div>
+                        <div class="footer-stat-label">Data Accuracy</div>
+                    </div>
+                    <div class="footer-stat">
+                        <div class="footer-stat-number">99.8%</div>
+                        <div class="footer-stat-label">System Uptime</div>
+                    </div>
+                </div>
+                
+                <p style="color: #666; margin-top: 2rem;">
+                    <strong>Dashboard Features:</strong> Real-time data refresh every 15 minutes | Interactive filters and drill-down capabilities | 
+                    Mobile-responsive design | Automated report generation | Stakeholder-friendly visualizations
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/shrikruthi-yeshala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:syeshala@iu.edu">Email</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📧 syeshala@iu.edu</p>
+                    <p>📱 (929) 613-3750</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shrikruthi Yeshala. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Enterprise Solutions Implementation - Technical Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .sap-doc-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .sap-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .sap-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .sap-hero .subtitle {
+            font-size: 1.3rem;
+            color: #ffffff;
+            opacity: 1;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .sap-hero .version {
+            background: rgba(255,255,255,0.25);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .sap-nav {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+        }
+        
+        .sap-nav h3 {
+            color: #0d1b3d;
+            margin-bottom: 1rem;
+        }
+        
+        .sap-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sap-nav li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sap-nav a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .sap-nav a:hover {
+            color: #2a5298;
+        }
+        
+        .sap-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .sap-section h2 {
+            color: #0d1b3d;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #1e3c72;
+        }
+        
+        .sap-section h3 {
+            color: #0d1b3d;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .process-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #1e3c72;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .process-card h4 {
+            color: #0d1b3d;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .process-card p {
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .sap-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+        
+        .sap-badge {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .workflow-diagram {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .workflow-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            background: #1e3c72;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #0d1b3d;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .step-content p {
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .sap-code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+        
+        .sap-code .comment {
+            color: #95a5a6;
+        }
+        
+        .sap-code .keyword {
+            color: #e74c3c;
+        }
+        
+        .sap-code .string {
+            color: #2ecc71;
+        }
+        
+        .module-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .module-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.3);
+        }
+        
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            opacity: 1;
+        }
+        
+        .module-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .module-card p {
+            color: #ffffff;
+            opacity: 1;
+            margin: 0;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        
+        .implementation-timeline {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .timeline-date {
+            background: #1e3c72;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content h4 {
+            color: #0d1b3d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content p {
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .back-to-projects {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .back-to-projects a {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+        }
+        
+        .back-to-projects a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.4);
+        }
+        
+        .results-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.3);
+        }
+        
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            color: #f0f0f0;
+            opacity: 1;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 768px) {
+            .sap-doc-wrapper {
+                padding: 1rem;
+            }
+            
+            .sap-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .sap-section {
+                padding: 2rem;
+            }
+            
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Override header text colors for better contrast against purple */
+        header .logo h1 {
+            color: #f0f0f0 !important;
+        }
+        
+        header .nav-links a {
+            color: #f0f0f0 !important;
+        }
+        
+        header .nav-links a:hover,
+        header .nav-links a.active {
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Shrikruthi Yeshala</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="sap-doc-wrapper">
+            <div class="back-to-projects">
+                <a href="projects.html">← Back to Projects</a>
+            </div>
+            
+            <div class="sap-hero">
+                <h1>🏢 SAP Enterprise Solutions Implementation</h1>
+                <p class="subtitle">Comprehensive Enterprise Resource Planning with P2P, OTC, and Make-to-Stock Processes</p>
+                <div class="version">Version 1.0 | Last Updated: December 2024</div>
+            </div>
+
+            <div class="sap-nav">
+                <h3>📋 Documentation Navigation</h3>
+                <ul>
+                    <li><a href="#overview">Project Overview</a></li>
+                    <li><a href="#processes">Business Processes</a></li>
+                    <li><a href="#modules">SAP Modules</a></li>
+                    <li><a href="#implementation">Implementation Guide</a></li>
+                    <li><a href="#master-data">Master Data Management</a></li>
+                    <li><a href="#results">Project Results</a></li>
+                </ul>
+            </div>
+
+            <div class="sap-section" id="overview">
+                <h2>🎯 Project Overview</h2>
+                <p>This comprehensive SAP GUI implementation project focused on mapping enterprise structure to critical business processes including Procure-to-Pay (P2P), Order-to-Cash (OTC), and Make-to-Stock operations. The project involved building Bills of Materials (BOMs), work centers, and routings while modeling capacity scenarios and managing lab sprints with structured problem-solving approaches.</p>
+                
+                <div class="sap-badges">
+                    <span class="sap-badge">SAP GUI</span>
+                    <span class="sap-badge">SAP MM</span>
+                    <span class="sap-badge">SAP SD</span>
+                    <span class="sap-badge">SAP PP</span>
+                    <span class="sap-badge">MRP</span>
+                    <span class="sap-badge">Enterprise Structure</span>
+                    <span class="sap-badge">Master Data</span>
+                    <span class="sap-badge">Process Mapping</span>
+                </div>
+            </div>
+
+            <div class="sap-section" id="processes">
+                <h2>🔄 Business Process Implementation</h2>
+                <div class="process-grid">
+                    <div class="process-card">
+                        <h4>📋 Enterprise Structure Mapping</h4>
+                        <p>Comprehensive mapping of organizational structure to support P2P, OTC, and Make-to-Stock processes with proper company codes, plants, and storage locations configuration.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>📦 Master Data Management</h4>
+                        <p>Implementation of Material Master, Business Partner (BP), and Product Information Record (PIR) management with data integrity and validation rules.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>🔄 End-to-End Process Execution</h4>
+                        <p>Complete process flow implementation including Purchase Requisitions (PR), Purchase Orders (PO), Goods Receipt (GR), Invoice Receipt (IR), Sales Orders (SO), Delivery, Post Goods Issue (PGI), and Billing.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>⚙️ MRP Execution & Resolution</h4>
+                        <p>Material Requirements Planning execution with automated exception handling and resolution workflows for production planning optimization.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>🏭 BOM & Routing Development</h4>
+                        <p>Creation of Bills of Materials, work centers, and routings with capacity modeling and production scenario planning for manufacturing optimization.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>📊 Capacity Scenario Modeling</h4>
+                        <p>Advanced capacity planning and scenario modeling to optimize resource utilization and production scheduling across multiple work centers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sap-section" id="modules">
+                <h2>🔧 SAP Module Implementation</h2>
+                <div class="module-showcase">
+                    <div class="module-card">
+                        <div class="module-icon">📦</div>
+                        <h4>SAP MM (Materials Management)</h4>
+                        <p>Complete procurement and inventory management with vendor master data, purchase orders, and goods receipt processes.</p>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-icon">💰</div>
+                        <h4>SAP SD (Sales & Distribution)</h4>
+                        <p>End-to-end sales process from order creation to delivery and billing with customer master data management.</p>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-icon">🏭</div>
+                        <h4>SAP PP (Production Planning)</h4>
+                        <p>Manufacturing execution with BOMs, routings, work centers, and capacity planning for production optimization.</p>
+                    </div>
+                    
+                    <div class="module-card">
+                        <div class="module-icon">📊</div>
+                        <h4>MRP (Material Requirements Planning)</h4>
+                        <p>Automated material planning with demand forecasting, procurement proposals, and exception management.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sap-section" id="implementation">
+                <h2>🛠️ Implementation Workflow</h2>
+                <div class="workflow-diagram">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Enterprise Structure Setup</h4>
+                            <p>Configuration of company codes, plants, storage locations, and organizational units to support business processes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Master Data Creation</h4>
+                            <p>Implementation of Material Master, Business Partner, and Product Information Records with comprehensive data validation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Process Configuration</h4>
+                            <p>Setup of P2P, OTC, and Make-to-Stock processes with workflow automation and approval hierarchies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>BOM & Routing Development</h4>
+                            <p>Creation of Bills of Materials, work centers, and production routings with capacity planning integration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>MRP Configuration</h4>
+                            <p>Material Requirements Planning setup with demand forecasting and automated procurement proposals.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h4>Testing & Validation</h4>
+                            <p>Comprehensive testing of all processes with user acceptance testing and performance optimization.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Technical Implementation Code</h3>
+                <div class="sap-code">
+<span class="comment">// SAP ABAP: Material Master Creation</span>
+<span class="keyword">FUNCTION</span> Z_CREATE_MATERIAL_MASTER.
+  <span class="keyword">DATA</span>: ls_mara <span class="keyword">TYPE</span> mara,
+          ls_marc <span class="keyword">TYPE</span> marc,
+          ls_mard <span class="keyword">TYPE</span> mard.
+
+  <span class="comment">// Set Material Master Data</span>
+  ls_mara-matnr = iv_material_number.
+  ls_mara-mtart = <span class="string">'FERT'</span>. <span class="comment">// Finished Product</span>
+  ls_mara-mbrsh = <span class="string">'M'</span>.   <span class="comment">// Industry Sector</span>
+  ls_mara-mtpos_mara = <span class="string">'NORM'</span>.
+
+  <span class="comment">// Set Plant Data</span>
+  ls_marc-matnr = iv_material_number.
+  ls_marc-werks = iv_plant.
+  ls_marc-mmsta = <span class="string">'01'</span>. <span class="comment">// Material Status</span>
+
+  <span class="comment">// Set Storage Location Data</span>
+  ls_mard-matnr = iv_material_number.
+  ls_mard-werks = iv_plant.
+  ls_mard-lgort = iv_storage_location.
+
+  <span class="comment">// Insert Material Master</span>
+  <span class="keyword">INSERT</span> mara <span class="keyword">FROM</span> ls_mara.
+  <span class="keyword">INSERT</span> marc <span class="keyword">FROM</span> ls_marc.
+  <span class="keyword">INSERT</span> mard <span class="keyword">FROM</span> ls_mard.
+
+  <span class="keyword">COMMIT</span> <span class="keyword">WORK</span>.
+<span class="keyword">ENDFUNCTION</span>.
+
+<span class="comment">// SAP ABAP: Purchase Order Creation</span>
+<span class="keyword">FUNCTION</span> Z_CREATE_PURCHASE_ORDER.
+  <span class="keyword">DATA</span>: ls_poheader <span class="keyword">TYPE</span> bapimepoheader,
+          lt_poitems <span class="keyword">TYPE</span> <span class="keyword">TABLE</span> <span class="keyword">OF</span> bapimepoitem.
+
+  <span class="comment">// Set Purchase Order Header</span>
+  ls_poheader-doc_type = <span class="string">'NB'</span>. <span class="comment">// Standard PO</span>
+  ls_poheader-vendor = iv_vendor_number.
+  ls_poheader-purch_org = iv_purchase_org.
+  ls_poheader-pur_group = iv_purchase_group.
+
+  <span class="comment">// Set Purchase Order Items</span>
+  ls_poitem-material = iv_material_number.
+  ls_poitem-plant = iv_plant.
+  ls_poitem-quantity = iv_quantity.
+  ls_poitem-net_price = iv_price.
+
+  <span class="keyword">APPEND</span> ls_poitem <span class="keyword">TO</span> lt_poitems.
+
+  <span class="comment">// Create Purchase Order</span>
+  <span class="keyword">CALL</span> <span class="keyword">FUNCTION</span> <span class="string">'BAPI_PO_CREATE1'</span>
+    <span class="keyword">EXPORTING</span>
+      poheader = ls_poheader
+    <span class="keyword">TABLES</span>
+      poitems = lt_poitems
+    <span class="keyword">IMPORTING</span>
+      expurchaseorder = ev_po_number.
+<span class="keyword">ENDFUNCTION</span>.
+                </div>
+            </div>
+
+            <div class="sap-section" id="master-data">
+                <h2>📊 Master Data Management</h2>
+                <h3>Data Structure Implementation</h3>
+                <div class="process-grid">
+                    <div class="process-card">
+                        <h4>📦 Material Master</h4>
+                        <p>Comprehensive material master data with views for Basic Data, Purchasing, MRP, Accounting, and Sales. Includes material types, industry sectors, and status management.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>👥 Business Partner</h4>
+                        <p>Customer and vendor master data with complete address management, payment terms, and communication preferences for seamless business transactions.</p>
+                    </div>
+                    
+                    <div class="process-card">
+                        <h4>📋 Product Information Record</h4>
+                        <p>Vendor-specific material information including pricing conditions, delivery times, and quality specifications for procurement optimization.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sap-section" id="results">
+                <h2>📈 Project Results & Metrics</h2>
+                <div class="results-metrics">
+                    <div class="metric-card">
+                        <div class="metric-number">100%</div>
+                        <div class="metric-label">Process Coverage</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">15+</div>
+                        <div class="metric-label">Business Processes</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">500+</div>
+                        <div class="metric-label">Master Data Records</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">95%</div>
+                        <div class="metric-label">System Efficiency</div>
+                    </div>
+                </div>
+
+                <h3>Implementation Timeline</h3>
+                <div class="implementation-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 1-2</div>
+                        <div class="timeline-content">
+                            <h4>Enterprise Structure Setup</h4>
+                            <p>Configuration of organizational units, company codes, and plant structures to support business processes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 3-4</div>
+                        <div class="timeline-content">
+                            <h4>Master Data Implementation</h4>
+                            <p>Creation and validation of Material Master, Business Partner, and Product Information Records.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 5-6</div>
+                        <div class="timeline-content">
+                            <h4>Process Configuration</h4>
+                            <p>Setup of P2P, OTC, and Make-to-Stock processes with workflow automation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 7-8</div>
+                        <div class="timeline-content">
+                            <h4>BOM & Routing Development</h4>
+                            <p>Creation of production structures and capacity planning scenarios.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">Week 9-10</div>
+                        <div class="timeline-content">
+                            <h4>Testing & Go-Live</h4>
+                            <p>Comprehensive testing, user training, and system go-live with support.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Me</a></li>
+                        <li><a href="resume.html">Resume</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/shrikruthi-yeshala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:syeshala@iu.edu">Email</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📧 syeshala@iu.edu</p>
+                    <p>📱 (929) 613-3750</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Shrikruthi Yeshala. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
